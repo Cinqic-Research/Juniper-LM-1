@@ -21,7 +21,8 @@ def _baseline(args: argparse.Namespace) -> int:
     targets = [("canonical", paths["baseline"]["canonical_dir"], True),
                ("working copy", paths["workspace"]["baseline_copy_dir"], False)]
     for label, root, check_mtime in targets:
-        problems = verify(Path(root), manifest, check_mtime=check_mtime)
+        problems = verify(Path(root), manifest, check_mtime=check_mtime,
+                          expected_baseline_id=paths["baseline"]["baseline_id"])
         print(f"{label}: {'VERIFIED' if not problems else 'FAILED'}")
         for p in problems:
             print(f"  {p}")
@@ -50,11 +51,11 @@ def main(argv: list[str] | None = None) -> int:
     c = b.add_parser("convert", help="build B0 from the working copy and run the equivalence gate")
     c.add_argument("--force", action="store_true")
     c.set_defaults(fn=_convert)
-    e = sub.add_parser("bench", help="JuniperBench-Code-v1").add_subparsers(dest="cmd", required=True)
+    e = sub.add_parser("bench", help="JuniperBench-Code").add_subparsers(dest="cmd", required=True)
     for name, text in (("validate", "run all authoring checks in the sandbox"),
                        ("verify", "check a frozen suite against its FREEZE.json")):
         cmd = e.add_parser(name, help=text)
-        cmd.add_argument("--suite", choices=["v1", "v1.1"], default="v1.1")
+        cmd.add_argument("--suite", choices=["v1", "v1.1", "v1.2"], default="v1.2")
         cmd.set_defaults(fn=_bench)
     args = ap.parse_args(argv)
     return args.fn(args)

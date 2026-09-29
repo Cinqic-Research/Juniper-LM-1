@@ -23,3 +23,9 @@ The frozen suite (`juniperbench_code_v1.jsonl`, SHA-256 `76ae86e7…`) and its p
   v1.1 is the primary suite for all Juniper results.
 - **If v1-protocol numbers are ever reported,** report them on all 160 tasks and on the
   159 excluding cin/008, labeled as such.
+
+## Later corrections
+
+E2–E7 are recorded in the v1.2 successor errata at
+`../juniperbench_code_v1_2/ERRATA.md`. They apply to v1.2 only; the v1 and v1.1 frozen
+task files and tags remain unchanged.

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=70"]
+requires = ["setuptools==78.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -17,12 +17,12 @@ dependencies = [
   "safetensors==0.8.0",
   "tokenizers==0.23.2",
   "accelerate==1.15.0",
-  "pyyaml",
+  "PyYAML==6.0.3",
 ]
 
 [project.optional-dependencies]
-train = ["datasets", "trl", "datasketch"]
-dev = ["pytest"]
+train = ["datasets==5.0.1", "trl==1.14.0", "datasketch==2.0.0"]
+dev = ["pytest==9.1.1"]
 
 [project.scripts]
 juniper = "juniper_lm1.cli:main"

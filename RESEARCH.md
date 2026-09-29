@@ -7,8 +7,8 @@ It keeps **Observed** results separate from **Hypothesis** explanations.
 
 FLOWBOX: AMD Ryzen 7 5700G (8C/16T), 14 GiB RAM, NVIDIA GeForce RTX 2060 (Turing, compute
 7.5, 6 GiB VRAM), driver 595.91.07 / CUDA 13.2, Ubuntu 24.04 (kernel 7.0.0-34), Python
-3.12.3. Root NVMe is 98% full, so all project state lives on the 458 GB ext4 HDD
-("Cinqic Storage"). Full inventory: `reports/environment/`.
+3.12.3. Root NVMe is 98% full, so all project state lives on the 458 GB ext4 external
+HDD. Full inventory: `reports/environment/`.
 
 Consequences recorded as design constraints:
 
@@ -114,10 +114,10 @@ before any model was evaluated. All 160 tasks pass validation under v1.1. See
 
 | Suite | Protocol | Freeze record | Status |
 |---|---|---|---|
-| v1.1 | `configs/eval/juniperbench_code_v1_1.yaml` | `evals/juniperbench_code_v1_1/FREEZE.json` | **primary** |
+| v1.1 | `configs/eval/juniperbench_code_v1_1.yaml` | `evals/juniperbench_code_v1_1/FREEZE.json` | historical primary at the time; superseded in §6 |
 | v1 | `configs/eval/juniperbench_code_v1.yaml` | `evals/juniperbench_code_v1/FREEZE.json` | historical (erratum E1) |
 
-Both verify with `juniper bench verify --suite <v1|v1.1>`.
+The historical suites verify with `juniper bench verify --suite <v1|v1.1>`.
 
 **Sandbox fixes from the final pre-review self-check (before any model evaluation).**
 (1) The interpreter ran with `-I`, which implies `-E` and silently ignored
@@ -126,3 +126,46 @@ runs with `-s -P`, and the hash seed is fixed (regression test added). (2) Outpu
 buffered in memory through pipes; it now goes to temp files capped by RLIMIT_FSIZE.
 Revalidation under the fixed sandbox gave identical results (v1.1: 160/160; v1: 159/160,
 only cin/008).
+
+## 6. Independent review and JuniperBench-Code-v1.2 (2026-09-29)
+
+This section records the independent review from the live `main` start SHA
+`82056e4859d78db1ec39b0e331bb03038b347f79`. The frozen v1/v1.1 tags and files were
+left unchanged. Current report copies replace local absolute mount paths with portable
+artifact labels; E6 in `evals/juniperbench_code_v1_2/ERRATA.md` records that metadata-only
+redaction.
+
+**Baseline reproduction.** The canonical snapshot and the configured working copy both
+passed manifest verification. The manifest describes 81 files, 5,632,425,324 bytes, and
+directory digest
+`756e80788d3a016d1de60bc329c6a5688acaac6e8883ca3224fb5e9d9f530a87`. The original
+working copy was converted again in a detached, isolated workspace. All 11 conversion
+and equivalence checks passed. The reproduced `model.safetensors` SHA-256 matched the
+accepted B0 hash exactly:
+`c7d00560d8910fbed77ffad4065dee5011c41ba401b1064e749c498ba9e20373`.
+
+**Review findings and corrections.** The review reproduced a case-folding defect in
+`JBC1/py/003`, a length-contract violation in `JBC1/test/007`, unscored method/API
+constraints in eight tasks, and freeze-verifier acceptance of corrupted summary
+metadata. The v1.2 authoring layer and evaluator now cover these cases. Reference score
+repeatability is named and described narrowly. The manifest verifier recomputes file
+count, byte total, directory digest, per-file hashes, and baseline identity. v1.2's
+freeze also binds the evaluator and sandbox source hashes. E2–E7 document exact scope
+and remaining limits.
+
+**JuniperBench-Code-v1.2 (tag `eval-v1.2`) is now the primary suite.** It contains 160
+successor task records and uses the v1.1 decoding budget, stop sequences, track settings,
+and sandbox limits. It adds the source-constraint scoring rules described above. All
+160/160 references pass validation against the B0 tokenizer in the bubblewrap sandbox.
+Task JSONL SHA-256:
+`c643faa559acfeb0e685b425e0440ce01995b9c91cd3204d5e9993c76dda716a`.
+The per-task hashes, protocol hash, validation rows, evaluator hash, and sandbox hash
+are in `evals/juniperbench_code_v1_2/FREEZE.json`. The repository test suite passed
+40 tests, the package wheel built, dependency checks were clean, and both canonical and
+working-copy baseline verification passed.
+
+This validates benchmark references and the execution environment; it is not a B0 or
+Juniper model evaluation. No training corpus or Juniper checkpoint has been produced,
+and the inference/sampling runner remains unimplemented. The GPT-2 upstream license
+conflict remains a blocker for any future distribution of derived weights; this code
+and benchmark update distributes no weights.

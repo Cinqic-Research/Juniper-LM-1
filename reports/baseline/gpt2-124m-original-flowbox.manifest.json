@@ -1,7 +1,7 @@
 {
   "schema": "juniper-baseline-manifest/1",
   "baseline_id": "gpt2-124m-original-flowbox",
-  "canonical_dir": "/media/cinqic/Cinqic Storage/models/gpt2-124m-original",
+  "canonical_dir": "gpt2-124m-original",
   "generated_utc": "2026-09-29T04:53:41.516154+00:00",
   "file_count": 81,
   "total_bytes": 5632425324,

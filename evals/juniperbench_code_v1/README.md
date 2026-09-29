@@ -1,8 +1,9 @@
 # JuniperBench-Code-v1
 
 A 160-task executable benchmark for Python and PyTorch code generation, built for the
-Juniper LM 1 study of GPT-2 124M. Every Juniper checkpoint and the stock GPT-2 baseline
-(B0) are scored on it with the same prompts, decoding, and sandbox.
+Juniper LM 1 study of GPT-2 124M. Its protocol specifies how every Juniper checkpoint
+and the stock GPT-2 baseline (B0) are to be scored with the same prompts, decoding,
+and sandbox. No B0 or Juniper checkpoint evaluation has been run yet.
 
 **Immutable.** `juniperbench_code_v1.jsonl` is frozen; `FREEZE.json` records its SHA-256
 and a hash per task. If a task turns out to be wrong, the fix goes into a new version
@@ -56,9 +57,10 @@ For every task, run in the bubblewrap sandbox:
 
 ## Errata
 
-Known defects in the frozen v1: `ERRATA.md`. Erratum E1 is resolved by
-**JuniperBench-Code-v1.1** (`../juniperbench_code_v1_1/`), which is the primary suite:
-the same tasks under a corrected protocol.
+Known defects in the frozen v1: `ERRATA.md`. E1 was addressed by the protocol-only
+v1.1. Further task, scoring, and freeze-verification corrections are recorded in the
+v1.2 successor (`../juniperbench_code_v1_2/`), now the primary suite. Neither historical
+task set was modified.
 
 ## Protocol
 
