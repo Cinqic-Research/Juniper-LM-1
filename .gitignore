@@ -1,0 +1,28 @@
+# Machine-specific paths
+configs/local.paths.toml
+
+# Never commit weights, corpora, caches, or upstream checkouts
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+*.h5
+*.msgpack
+*.onnx
+*.tflite
+*.ot
+*.arrow
+*.parquet
+checkpoints/
+caches/
+staging/
+datasets/raw/
+datasets/processed/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/

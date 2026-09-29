@@ -1,0 +1,43 @@
+# Conversion-equivalence gate for B0 — version 2 (amended 2026-09-29).
+#
+# Source: verified working copy of gpt2-124m-original-flowbox.
+# Converted representation: transformers GPT2LMHeadModel re-serialized to safetensors (FP32).
+# Reference: independent pure-PyTorch GPT-2 (src/juniper_lm1/baseline/reference_gpt2.py)
+#            loaded from the *other* upstream serialization, pytorch_model.bin.
+#
+# AMENDMENT HISTORY
+# v1 (pre-registered before any run): max_abs_logit_error 1e-4 between reference and B0,
+#     both FP32. Attempt 1 FAILED at 3.97e-3 (reports/failures/conversion-gate-attempt1.*).
+# v2 (this file), with the reason documented before B0 was accepted:
+#     Diagnostics (reports/failures/conversion-gate-attempt1.md) showed
+#       - HF(original safetensors) vs HF(B0), FP32 ........ 0.0 exactly
+#       - reference vs HF, both FP64 ...................... 1.0e-11
+#       - HF sdpa vs HF eager attention, same weights FP32 . 1.4e-3
+#       - HF FP32 vs FP64 ground truth .................... 5.0e-3
+#     i.e. the FP32 noise floor of *any* correct GPT-2 implementation on these inputs is
+#     ~1e-3 (large residual activations accumulated over 12 layers), so v1's FP32 1e-4
+#     tolerance could not distinguish correct from incorrect conversions. v1's rationale
+#     (logits O(10^2) => 1e-6 relative) underestimated that floor.
+#     v2 therefore tests each property where it is measurable:
+#       * conversion fidelity: same implementation, FP32, tolerance 0 (exact);
+#       * implementation semantics: FP64, tolerance 1e-4 (the spec's number);
+#       * FP32 behavior: argmax / top-k / greedy identity, as before;
+#       * FP32 cross-implementation error is recorded, not gated.
+
+device: cpu
+dtype: float32
+source_vs_converted_max_abs_logit_error: 0.0     # FP32, same implementation
+reference_fp64_max_abs_logit_error: 1.0e-4       # FP64, independent implementation
+topk_ranking_k: 10          # FP32 top-k sets must match wherever the k-th/k+1-th gap > 2e-3
+topk_near_tie_margin: 2.0e-3
+greedy_new_tokens: 32
+expected:
+  model_type: gpt2
+  n_layer: 12
+  n_head: 12
+  n_embd: 768
+  n_positions: 1024
+  vocab_size: 50257
+  tie_word_embeddings: true
+  parameter_count: 124439808   # unique parameters with tied wte/lm_head
+tokenizer_files: [vocab.json, merges.txt, tokenizer.json]

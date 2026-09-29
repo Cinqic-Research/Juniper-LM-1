@@ -1,0 +1,17 @@
+# Copy to configs/local.paths.toml (git-ignored) and edit for your machine.
+# Every script resolves machine-specific locations through this file; no disk paths
+# are hard-coded elsewhere in the codebase.
+
+[baseline]
+# Canonical, permanently untouched GPT-2 124M checkpoint (read-only; never trained on).
+canonical_dir = "/path/to/models/gpt2-124m-original"
+baseline_id = "gpt2-124m-original-flowbox"
+
+[workspace]
+# Work area outside the Git tree: verified baseline copy, checkpoints, datasets, caches.
+root = "/path/to/Juniper-LM-1-work"
+baseline_copy_dir = "/path/to/Juniper-LM-1-work/baseline-copy/gpt2-124m-original-flowbox"
+checkpoints_dir = "/path/to/Juniper-LM-1-work/checkpoints"
+datasets_dir = "/path/to/Juniper-LM-1-work/datasets"
+caches_dir = "/path/to/Juniper-LM-1-work/caches"
+staging_dir = "/path/to/Juniper-LM-1-work/staging"

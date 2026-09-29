@@ -1,0 +1,679 @@
+{
+  "schema": "juniper-baseline-manifest/1",
+  "baseline_id": "gpt2-124m-original-flowbox",
+  "canonical_dir": "/media/cinqic/Cinqic Storage/models/gpt2-124m-original",
+  "generated_utc": "2026-09-29T04:53:41.516154+00:00",
+  "file_count": 81,
+  "total_bytes": 5632425324,
+  "directory_digest_sha256": "756e80788d3a016d1de60bc329c6a5688acaac6e8883ca3224fb5e9d9f530a87",
+  "identity": {
+    "config": {
+      "model_type": "gpt2",
+      "architectures": [
+        "GPT2LMHeadModel"
+      ],
+      "n_layer": 12,
+      "n_head": 12,
+      "n_embd": 768,
+      "n_positions": 1024,
+      "n_ctx": 1024,
+      "vocab_size": 50257,
+      "bos_token_id": 50256,
+      "eos_token_id": 50256
+    },
+    "hf_revisions_in_download_metadata": [
+      "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+    ]
+  },
+  "source_notes": "Hugging Face openai-community/gpt2 (OpenAI GPT-2 small), repository snapshot at revision 607a30d783dfa663caf39e06633721c8d4cfcd7e, downloaded to FLOWBOX 2026-09-28 via huggingface_hub (see file mtimes and .cache/huggingface/download metadata). Directory made read-only by the earlier FLOWBOX GPT-2 setup session; an earlier independent sha256 list exists at GPT2/runtime/original-integrity/original.sha256. The original OpenAI TensorFlow model.ckpt release files are not present on FLOWBOX.",
+  "files": [
+    {
+      "path": ".cache/huggingface/.gitignore",
+      "size": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "mtime_ns": 1790628508147170497,
+      "mtime_utc": "2026-09-28T20:48:28.147171+00:00",
+      "format": "other"
+    },
+    {
+      "path": ".cache/huggingface/CACHEDIR.TAG",
+      "size": 191,
+      "sha256": "f6572428f6d5e1575e73a1502895a8731f10757dfbb634909c6e154b849af91d",
+      "mtime_ns": 1790628508040283392,
+      "mtime_utc": "2026-09-28T20:48:28.040283+00:00",
+      "format": "cache directory tag"
+    },
+    {
+      "path": ".cache/huggingface/download/.gitattributes.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508314442531,
+      "mtime_utc": "2026-09-28T20:48:28.314442+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/.gitattributes.metadata",
+      "size": 101,
+      "sha256": "ed8f9bb3838c36a18bc458ef041c23311bbc514f84180901e1b645cda51cfa57",
+      "mtime_ns": 1790628508315110392,
+      "mtime_utc": "2026-09-28T20:48:28.315110+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/64-8bits.tflite.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628759771826293,
+      "mtime_utc": "2026-09-28T20:52:39.771826+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/64-8bits.tflite.metadata",
+      "size": 125,
+      "sha256": "c12833167a4e6249106ade0ce1fcb0977496255549ec341cd5d2469450a2b5d2",
+      "mtime_ns": 1790628759772477274,
+      "mtime_utc": "2026-09-28T20:52:39.772477+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/64-fp16.tflite.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628765206948703,
+      "mtime_utc": "2026-09-28T20:52:45.206949+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/64-fp16.tflite.metadata",
+      "size": 125,
+      "sha256": "885d7f17cb5331c7c2bc50f6b387558901fcc3c1476c67bb891e3d78ed5cebb1",
+      "mtime_ns": 1790628765207595296,
+      "mtime_utc": "2026-09-28T20:52:45.207595+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/64.tflite.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628789870150657,
+      "mtime_utc": "2026-09-28T20:53:09.870151+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/64.tflite.metadata",
+      "size": 125,
+      "sha256": "b8b9f3d274bac49356870b8068a906ad53d0174cad4351282c246ef0863909a2",
+      "mtime_ns": 1790628789870671707,
+      "mtime_utc": "2026-09-28T20:53:09.870672+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/README.md.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508270396113,
+      "mtime_utc": "2026-09-28T20:48:28.270396+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/README.md.metadata",
+      "size": 100,
+      "sha256": "23ff357cac1785612078049a3fdbe642534b6bac7ff592bc9ede975bdc2d27f9",
+      "mtime_ns": 1790628508270978954,
+      "mtime_utc": "2026-09-28T20:48:28.270979+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508313538400,
+      "mtime_utc": "2026-09-28T20:48:28.313538+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/config.json.metadata",
+      "size": 101,
+      "sha256": "387fa39305b51e48b9d8f0cb29a69c38a5311805bee212d6b60e67bafb831f0e",
+      "mtime_ns": 1790628508314442531,
+      "mtime_utc": "2026-09-28T20:48:28.314442+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/flax_model.msgpack.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628786245157371,
+      "mtime_utc": "2026-09-28T20:53:06.245157+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/flax_model.msgpack.metadata",
+      "size": 125,
+      "sha256": "2f0766185b1dca1e8b54b554323080189a7074c7b3b59f67d37d8e0eed81a9ca",
+      "mtime_ns": 1790628786245932379,
+      "mtime_utc": "2026-09-28T20:53:06.245932+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/generation_config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508221132376,
+      "mtime_utc": "2026-09-28T20:48:28.221132+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/generation_config.json.metadata",
+      "size": 101,
+      "sha256": "8bb6bb1f11a8fe94419359beea5199c0753161dde62d15d9a02bc2040d91274a",
+      "mtime_ns": 1790628508221762727,
+      "mtime_utc": "2026-09-28T20:48:28.221763+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/merges.txt.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508398654094,
+      "mtime_utc": "2026-09-28T20:48:28.398654+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/merges.txt.metadata",
+      "size": 101,
+      "sha256": "bb077807f18b1a7c1264b29b49b8e8f1666a93586fdb7b701a59e5f16885770b",
+      "mtime_ns": 1790628508399184495,
+      "mtime_utc": "2026-09-28T20:48:28.399184+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/model.safetensors.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628774642133276,
+      "mtime_utc": "2026-09-28T20:52:54.642133+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/model.safetensors.metadata",
+      "size": 125,
+      "sha256": "6c8c598ca5c04d4620988f0c98e561ade89e6dec251ed9e05680865544ae8117",
+      "mtime_ns": 1790628774642918418,
+      "mtime_utc": "2026-09-28T20:52:54.642918+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628508456844123,
+      "mtime_utc": "2026-09-28T20:48:28.456844+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/config.json.metadata",
+      "size": 101,
+      "sha256": "da9ff28c34625cf2b4d51a2a00e60edccd6d151b3135a8fcd99ebe9f3c4d692d",
+      "mtime_ns": 1790628508457453263,
+      "mtime_utc": "2026-09-28T20:48:28.457453+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_model.onnx.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628791464167303,
+      "mtime_utc": "2026-09-28T20:53:11.464167+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_model.onnx.metadata",
+      "size": 124,
+      "sha256": "790b76cee7289499272c83a91bb15c8f3d60e292a0e21acd6f742c67b76621c4",
+      "mtime_ns": 1790628791464843101,
+      "mtime_utc": "2026-09-28T20:53:11.464843+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_model_merged.onnx.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628799130927940,
+      "mtime_utc": "2026-09-28T20:53:19.130928+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_model_merged.onnx.metadata",
+      "size": 125,
+      "sha256": "a4261b7e823c832385e68cb8d1bb5b52ead0e075bccb2ed0f5b4bf503c357367",
+      "mtime_ns": 1790628799131608614,
+      "mtime_utc": "2026-09-28T20:53:19.131608+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_with_past_model.onnx.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628797944946891,
+      "mtime_utc": "2026-09-28T20:53:17.944947+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/decoder_with_past_model.onnx.metadata",
+      "size": 125,
+      "sha256": "6e198e8da2baf8f9484f94b00b207147f6c0884e8255359a2897e4e0fa3ad3d1",
+      "mtime_ns": 1790628797945911618,
+      "mtime_utc": "2026-09-28T20:53:17.945912+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/generation_config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628760361968723,
+      "mtime_utc": "2026-09-28T20:52:40.361969+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/generation_config.json.metadata",
+      "size": 101,
+      "sha256": "3acbadc4f6162b33f36d4134083ad65f99793da74d55dde7c27984b7b2ec32f8",
+      "mtime_ns": 1790628760362604215,
+      "mtime_utc": "2026-09-28T20:52:40.362604+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/merges.txt.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628760865775731,
+      "mtime_utc": "2026-09-28T20:52:40.865776+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/merges.txt.metadata",
+      "size": 101,
+      "sha256": "1c07f2a8b7d021af5755fe1d32a3f7f1c9428faaaf0dd73a3fe41e47afef2c8a",
+      "mtime_ns": 1790628760866799446,
+      "mtime_utc": "2026-09-28T20:52:40.866799+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/special_tokens_map.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628761028191438,
+      "mtime_utc": "2026-09-28T20:52:41.028192+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/special_tokens_map.json.metadata",
+      "size": 101,
+      "sha256": "27f46166ae969265f386dc18ec80553512143b02883a5e29830af8ca4f1ce9f4",
+      "mtime_ns": 1790628761028776771,
+      "mtime_utc": "2026-09-28T20:52:41.028777+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/tokenizer.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628761723863257,
+      "mtime_utc": "2026-09-28T20:52:41.723863+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/tokenizer.json.metadata",
+      "size": 100,
+      "sha256": "623036e52da39ffff50cbf113008fc6d8d74feb64a3071d4ccd6ca2de7b667db",
+      "mtime_ns": 1790628761724535098,
+      "mtime_utc": "2026-09-28T20:52:41.724535+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/tokenizer_config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628761881325185,
+      "mtime_utc": "2026-09-28T20:52:41.881325+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/tokenizer_config.json.metadata",
+      "size": 100,
+      "sha256": "2344c86831e00ca0f8448ca8ffb34d8dced728447d9b44819874b88ac7c15528",
+      "mtime_ns": 1790628761881956938,
+      "mtime_utc": "2026-09-28T20:52:41.881957+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/vocab.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628762211184479,
+      "mtime_utc": "2026-09-28T20:52:42.211185+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/onnx/vocab.json.metadata",
+      "size": 101,
+      "sha256": "56653fa462043f9759a7a391e98f3802efa027037c4398e308c50a8c68368ac2",
+      "mtime_ns": 1790628762212026635,
+      "mtime_utc": "2026-09-28T20:52:42.212027+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/pytorch_model.bin.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628841986497001,
+      "mtime_utc": "2026-09-28T20:54:01.986497+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/pytorch_model.bin.metadata",
+      "size": 125,
+      "sha256": "e8a861db0b44d970965bc2a7a5333b695b4e677bc838cdcf37592d40dbfd351f",
+      "mtime_ns": 1790628841987954067,
+      "mtime_utc": "2026-09-28T20:54:01.987954+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/rust_model.ot.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628891932845731,
+      "mtime_utc": "2026-09-28T20:54:51.932846+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/rust_model.ot.metadata",
+      "size": 125,
+      "sha256": "67044c9824f4f1923d390c9b055c4140c990e6e1c4ce8ce4da12219ee07cc6b4",
+      "mtime_ns": 1790628891933553184,
+      "mtime_utc": "2026-09-28T20:54:51.933553+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/tf_model.h5.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628890518875984,
+      "mtime_utc": "2026-09-28T20:54:50.518876+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/tf_model.h5.metadata",
+      "size": 125,
+      "sha256": "9187f8ef63ba67818c290e00336e0bb22b835affc77365f4ed5fa772a894f6b3",
+      "mtime_ns": 1790628890519449207,
+      "mtime_utc": "2026-09-28T20:54:50.519449+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/tokenizer.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628787753127785,
+      "mtime_utc": "2026-09-28T20:53:07.753128+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/tokenizer.json.metadata",
+      "size": 100,
+      "sha256": "26778de8e4747b6e85bbb9724a49c31cdcbb841ffa453b9ebfdda63d83e88a58",
+      "mtime_ns": 1790628787753784013,
+      "mtime_utc": "2026-09-28T20:53:07.753784+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/tokenizer_config.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628788345116380,
+      "mtime_utc": "2026-09-28T20:53:08.345116+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/tokenizer_config.json.metadata",
+      "size": 101,
+      "sha256": "25202aa4f1f36b568684cba2f0ead9762fdc1c72eb293a403d0ecbf77d33b732",
+      "mtime_ns": 1790628788345801234,
+      "mtime_utc": "2026-09-28T20:53:08.345801+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/download/vocab.json.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime_ns": 1790628788835107008,
+      "mtime_utc": "2026-09-28T20:53:08.835107+00:00",
+      "format": "huggingface_hub download lock (empty)"
+    },
+    {
+      "path": ".cache/huggingface/download/vocab.json.metadata",
+      "size": 101,
+      "sha256": "1c4b9dd02973d052b387b0f725c74f38329241c154a6e32e272651a0bd2538d1",
+      "mtime_ns": 1790628788835953497,
+      "mtime_utc": "2026-09-28T20:53:08.835953+00:00",
+      "format": "huggingface_hub download metadata"
+    },
+    {
+      "path": ".cache/huggingface/trees/607a30d783dfa663caf39e06633721c8d4cfcd7e.json",
+      "size": 4952,
+      "sha256": "018c7732ce98a4eed8d298a37399320168313ce9da6dcbdc3ddc82e71f8f3c80",
+      "mtime_ns": 1790628508037915739,
+      "mtime_utc": "2026-09-28T20:48:28.037916+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": ".gitattributes",
+      "size": 445,
+      "sha256": "98c91dabef4df27b2fc7c8454d220aba47476f73593cbd034d961fe4927304c1",
+      "mtime_ns": 1790628508296283668,
+      "mtime_utc": "2026-09-28T20:48:28.296284+00:00",
+      "format": "other"
+    },
+    {
+      "path": "64-8bits.tflite",
+      "size": 125162496,
+      "sha256": "c966da3b74697803352ca7c6f2f220e7090a557b619de9da0c6b34d89f7825c1",
+      "mtime_ns": 1790628758818836297,
+      "mtime_utc": "2026-09-28T20:52:38.818836+00:00",
+      "format": "TensorFlow Lite flatbuffer"
+    },
+    {
+      "path": "64-fp16.tflite",
+      "size": 248269688,
+      "sha256": "1ceafd82e733dd4b21570b2a86cf27556a983041806c033a55d086e0ed782cd3",
+      "mtime_ns": 1790628762993714548,
+      "mtime_utc": "2026-09-28T20:52:42.993714+00:00",
+      "format": "TensorFlow Lite flatbuffer"
+    },
+    {
+      "path": "64.tflite",
+      "size": 495791932,
+      "sha256": "cfcd510b239d90b71ee87d4e57a5a8c2d55b2a941e5d9fe5852298268ddbe61b",
+      "mtime_ns": 1790628769153547567,
+      "mtime_utc": "2026-09-28T20:52:49.153548+00:00",
+      "format": "TensorFlow Lite flatbuffer"
+    },
+    {
+      "path": "README.md",
+      "size": 8092,
+      "sha256": "0fcd631078093c2aa1d93438b898320b8a1167784e2a1ab37b8016e9de8b3c2e",
+      "mtime_ns": 1790628508268283640,
+      "mtime_utc": "2026-09-28T20:48:28.268284+00:00",
+      "format": "Markdown (upstream model card)"
+    },
+    {
+      "path": "config.json",
+      "size": 665,
+      "sha256": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4",
+      "mtime_ns": 1790628508289283661,
+      "mtime_utc": "2026-09-28T20:48:28.289284+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "flax_model.msgpack",
+      "size": 497764120,
+      "sha256": "192e8257ae9e8f796f764630f4a488a6a16d1461762d62b49ef7405df951a283",
+      "mtime_ns": 1790628767585588709,
+      "mtime_utc": "2026-09-28T20:52:47.585589+00:00",
+      "format": "Flax msgpack weights"
+    },
+    {
+      "path": "generation_config.json",
+      "size": 124,
+      "sha256": "ed0b32ac72c0f5f44a719abb2d7786ea5146c871f83717b7f2018065954de02b",
+      "mtime_ns": 1790628508219283585,
+      "mtime_utc": "2026-09-28T20:48:28.219284+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "merges.txt",
+      "size": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "mtime_ns": 1790628508397283778,
+      "mtime_utc": "2026-09-28T20:48:28.397284+00:00",
+      "format": "text (BPE merges)"
+    },
+    {
+      "path": "model.safetensors",
+      "size": 548105171,
+      "sha256": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+      "mtime_ns": 1790628767754584221,
+      "mtime_utc": "2026-09-28T20:52:47.754584+00:00",
+      "format": "safetensors (PyTorch/HF weights)"
+    },
+    {
+      "path": "onnx/config.json",
+      "size": 879,
+      "sha256": "c6d8a78631f7a03a14493eb78d584ba92c8e68c8774b810426b34df1f8a15b10",
+      "mtime_ns": 1790628508455283840,
+      "mtime_utc": "2026-09-28T20:48:28.455284+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "onnx/decoder_model.onnx",
+      "size": 653665842,
+      "sha256": "e3fc9615868ff8f5e0429b892a0f6ca692784ba6c4ca31c4e9ee8218e7cce34f",
+      "mtime_ns": 1790628766396620516,
+      "mtime_utc": "2026-09-28T20:52:46.396621+00:00",
+      "format": "ONNX graph + weights"
+    },
+    {
+      "path": "onnx/decoder_model_merged.onnx",
+      "size": 655189339,
+      "sha256": "e6fc046fe5a7cfeeb8bb3c7d4c1b6a8bd90ced7339a75d5567957e3bc9d48abe",
+      "mtime_ns": 1790628769822530311,
+      "mtime_utc": "2026-09-28T20:52:49.822530+00:00",
+      "format": "ONNX graph + weights"
+    },
+    {
+      "path": "onnx/decoder_with_past_model.onnx",
+      "size": 653672649,
+      "sha256": "570d958241de81f12d82a8358dfc0b408a7bf44ff2bd10ac4a97dab24a8118db",
+      "mtime_ns": 1790628768924553504,
+      "mtime_utc": "2026-09-28T20:52:48.924553+00:00",
+      "format": "ONNX graph + weights"
+    },
+    {
+      "path": "onnx/generation_config.json",
+      "size": 119,
+      "sha256": "067a873d1d1a67ffa7237a0ad0eebdb547d3f9209793c8aa476ec130815e3c8c",
+      "mtime_ns": 1790628760360790535,
+      "mtime_utc": "2026-09-28T20:52:40.360790+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "onnx/merges.txt",
+      "size": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "mtime_ns": 1790628760864775760,
+      "mtime_utc": "2026-09-28T20:52:40.864776+00:00",
+      "format": "text (BPE merges)"
+    },
+    {
+      "path": "onnx/special_tokens_map.json",
+      "size": 99,
+      "sha256": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad",
+      "mtime_ns": 1790628761026771021,
+      "mtime_utc": "2026-09-28T20:52:41.026771+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "onnx/tokenizer.json",
+      "size": 2107653,
+      "sha256": "cda20b8ca044949aa07ac4078420c80d1a57139d5f9f33700e46fb2d891e7c66",
+      "mtime_ns": 1790628761712751187,
+      "mtime_utc": "2026-09-28T20:52:41.712751+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "onnx/tokenizer_config.json",
+      "size": 234,
+      "sha256": "551e26ec611d8d0c8edc3ef72e518a38418cb71f40de1347dd486a595e1557d7",
+      "mtime_ns": 1790628761879746359,
+      "mtime_utc": "2026-09-28T20:52:41.879746+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "onnx/vocab.json",
+      "size": 798156,
+      "sha256": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7",
+      "mtime_ns": 1790628762209736901,
+      "mtime_utc": "2026-09-28T20:52:42.209737+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "pytorch_model.bin",
+      "size": 548118077,
+      "sha256": "7c5d3f4b8b76583b422fcb9189ad6c89d5d97a094541ce8932dce3ecabde1421",
+      "mtime_ns": 1790628839536509706,
+      "mtime_utc": "2026-09-28T20:53:59.536510+00:00",
+      "format": "PyTorch pickle state_dict (HF legacy)"
+    },
+    {
+      "path": "rust_model.ot",
+      "size": 702517648,
+      "sha256": "adf0adedbf4016b249550f866c66a3b3a3d09c8b3b3a1f6e5e9a265d94e0270e",
+      "mtime_ns": 1790628880415451492,
+      "mtime_utc": "2026-09-28T20:54:40.415451+00:00",
+      "format": "rust-bert / libtorch tensor archive"
+    },
+    {
+      "path": "tf_model.h5",
+      "size": 497933648,
+      "sha256": "d08c1307f7dfae6f878e0a2ca5715d587d2640530db8ef96fc0c1fc474dd9fee",
+      "mtime_ns": 1790628880807452355,
+      "mtime_utc": "2026-09-28T20:54:40.807452+00:00",
+      "format": "Keras/TensorFlow HDF5 weights"
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 1355256,
+      "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6",
+      "mtime_ns": 1790628787752127804,
+      "mtime_utc": "2026-09-28T20:53:07.752128+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 26,
+      "sha256": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f",
+      "mtime_ns": 1790628788344116399,
+      "mtime_utc": "2026-09-28T20:53:08.344116+00:00",
+      "format": "JSON (config/tokenizer)"
+    },
+    {
+      "path": "vocab.json",
+      "size": 1042301,
+      "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783",
+      "mtime_ns": 1790628788834107027,
+      "mtime_utc": "2026-09-28T20:53:08.834107+00:00",
+      "format": "JSON (config/tokenizer)"
+    }
+  ]
+}
