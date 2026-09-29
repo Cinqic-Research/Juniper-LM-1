@@ -20,10 +20,29 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - name: Install bubblewrap
+      - name: Install bubblewrap and configure restricted-runner wrapper
         run: |
           sudo apt-get update
-          sudo apt-get install --yes bubblewrap
+          sudo apt-get install --yes bubblewrap util-linux
+          wrapper_dir="$RUNNER_TEMP/juniper-bwrap-wrapper"
+          mkdir -p "$wrapper_dir"
+          # Create a route-free net namespace before bwrap. The hosted runner can
+          # deny bwrap's RTM_NEWADDR loopback setup; sharing this private namespace
+          # keeps the candidate offline without changing the frozen sandbox code.
+          cat > "$wrapper_dir/bwrap" <<'EOF'
+          #!/bin/sh
+          if [ "$1" != "--unshare-all" ]; then
+            echo "unexpected bubblewrap invocation; refusing an unisolated fallback" >&2
+            exit 125
+          fi
+          shift
+          exec /usr/bin/unshare --user --map-root-user --net -- \
+            /usr/bin/bwrap --unshare-all --share-net "$@"
+          EOF
+          chmod 0755 "$wrapper_dir/bwrap"
+          echo "$wrapper_dir" >> "$GITHUB_PATH"
+          /usr/bin/bwrap --version
+          "$wrapper_dir/bwrap" --unshare-all -- /usr/bin/true
       - name: Install CPU test dependencies
         run: |
           python -m pip install --upgrade pip
