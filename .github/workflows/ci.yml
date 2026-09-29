@@ -23,14 +23,14 @@ jobs:
       - name: Install bubblewrap with runner-scoped AppArmor profile
         run: |
           sudo apt-get update
-          sudo apt-get install --yes bubblewrap apparmor-profiles
+          sudo env NEEDRESTART_MODE=l apt-get install --yes bubblewrap apparmor-profiles
           sysctl kernel.apparmor_restrict_unprivileged_userns
           test "$(sysctl -n kernel.apparmor_restrict_unprivileged_userns)" = "1"
           profile_source=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
           test -f "$profile_source"
           sudo install -m 0644 "$profile_source" /etc/apparmor.d/bwrap-userns-restrict
           sudo apparmor_parser -r /etc/apparmor.d/bwrap-userns-restrict
-          grep -Fq "bwrap" /sys/kernel/security/apparmor/profiles
+          sudo grep -Fq "bwrap" /sys/kernel/security/apparmor/profiles
           /usr/bin/bwrap --version
           /usr/bin/bwrap --unshare-all \
             --ro-bind /usr /usr \
