@@ -100,6 +100,10 @@ def validate_task(task: dict, protocol: dict, tokenizer) -> dict:
     n_total = len(tokenizer(task["prompt"] + sol)["input_ids"])
     checks["prompt_tokens_ok"] = n_prompt <= MAX_PROMPT_TOKENS
     checks["fits_context"] = n_total <= protocol["context_length"] - MARGIN_TOKENS
+    # Added after the v1 freeze (see ERRATA.md): the reference must fit the generation cap.
+    n_solution = len(tokenizer(sol)["input_ids"])
+    checks["solution_fits_generation_cap"] = n_solution <= min(
+        protocol["max_new_tokens"], protocol["context_length"] - n_prompt)
     first = score(task, sol)
     second = score(task, sol)
     checks["reference_passes"] = first["passed"]
@@ -123,14 +127,12 @@ def structural_problems(tasks: list[dict]) -> list[str]:
     ids = [t["task_id"] for t in tasks]
     if len(ids) != len(set(ids)):
         problems.append("duplicate task ids")
-    entry = [(t["category"], t["entry_point"]) for t in tasks]
     counts = {c: sum(1 for t in tasks if t["category"] == c) for c in EXPECTED_COUNTS}
     if counts != EXPECTED_COUNTS:
         problems.append(f"category counts {counts} != {EXPECTED_COUNTS}")
     prompts = [t["prompt"] for t in tasks]
     if len(prompts) != len(set(prompts)):
         problems.append("duplicate prompts")
-    del entry
     return problems
 
 
@@ -165,7 +167,18 @@ def main(argv: list[str] | None = None) -> int:
         data = FROZEN_JSONL.read_bytes()
         ok = hashlib.sha256(data).hexdigest() == freeze["jsonl_sha256"]
         rows = [json.loads(line) for line in data.decode().splitlines()]
-        ok &= {r["task_id"]: task_hash(r) for r in rows} == freeze["task_sha256"]
+        checks = {
+            "jsonl_sha256": ok,
+            "task_sha256": {r["task_id"]: task_hash(r) for r in rows} == freeze["task_sha256"],
+            "protocol_sha256":
+                hashlib.sha256(PROTOCOL.read_bytes()).hexdigest() == freeze["protocol_sha256"],
+            # the reviewable authoring sources must rebuild the frozen records exactly
+            "authoring_reproduces_jsonl": [
+                {**t, "suite": SUITE_NAME, "canary": CANARY} for t in load_authoring()] == rows,
+        }
+        for name, passed in checks.items():
+            print(f"{'PASS' if passed else 'FAIL'}  {name}")
+        ok = all(checks.values())
         print("VERIFIED" if ok else "FAILED")
         return 0 if ok else 1
 

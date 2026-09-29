@@ -72,8 +72,8 @@ concern still applies and is recorded as a threat to validity, not dismissed. Mi
 - the suite and its decoding/execution protocol were frozen (tag `eval-v1`) before any
   training data was collected and before any training run;
 - per-task SHA-256 hashes and a canary GUID; corrections only in a new version;
-- training data is decontaminated against every prompt, solution, test, and mutant, and
-  scanned for the canary;
+- training data will be decontaminated against every prompt, solution, test, and mutant,
+  and scanned for the canary (not yet implemented: it lands with the corpus pipeline);
 - HumanEval, HumanEval+, and MBPP+ remain the independent external anchors, and the
   report will put more weight on agreement between JuniperBench and those anchors than
   on JuniperBench alone.
@@ -99,5 +99,11 @@ Found and fixed during authoring, all before the freeze:
   py/036 digits, dbg/010 `None`, cin/007 `"1.2.3"`) and were removed.
 
 Suite SHA-256 `76ae86e7267b0d1700b883633271ae8dc25ec79cfc2c74f052e92b94f10c72f7`.
+
+**Post-freeze defect (E1).** The self-review found that `JBC1/cin/008` cannot be solved
+in normally written Python under the frozen 512-token generation cap: its reference is
+665 tokens, and compact rewrites still need 536+. v1 is unchanged. v1 results are
+reported both with and without cin/008. See `evals/juniperbench_code_v1/ERRATA.md` and
+`reports/failures/juniperbench-v1-cin008-generation-cap.md`.
 Protocol: `configs/eval/juniperbench_code_v1.yaml`. Freeze record:
 `evals/juniperbench_code_v1/FREEZE.json`.

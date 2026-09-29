@@ -54,6 +54,10 @@ For every task, run in the bubblewrap sandbox:
    top-level lines;
 6. prompt ≤ 640 GPT-2 tokens, and prompt plus solution ≤ 992 tokens (1,024-token context).
 
+## Errata
+
+Known defects in the frozen v1 and how results account for them: `ERRATA.md`.
+
 ## Protocol
 
 Decoding, stop sequences, sampling seeds, execution limits, and metrics are fixed in
@@ -69,8 +73,9 @@ tasks. Mitigations:
 
 - the suite was frozen before any training data was collected or any training run;
 - every task and the protocol are hashed; changes require a new version;
-- training shards are decontaminated against every prompt, solution, and test (exact,
-  normalized-hash, n-gram, and MinHash matching) and scanned for the canary;
+- training shards will be decontaminated against every prompt, solution, test, and
+  mutant (exact, normalized-hash, n-gram, and MinHash matching) and scanned for the
+  canary;
 - external benchmarks (HumanEval, HumanEval+, MBPP+) remain the independent anchors;
 - the tasks were written from scratch, without consulting HumanEval/MBPP or the Cinqic
   repositories. An n-gram overlap check against HumanEval/MBPP runs once those

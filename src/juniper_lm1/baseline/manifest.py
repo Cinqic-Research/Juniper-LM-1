@@ -120,6 +120,8 @@ def verify(root: Path, manifest: dict, check_mtime: bool = True) -> list[str]:
         problems.append(f"missing: {path}")
     for path in sorted(current.keys() - expected.keys()):
         problems.append(f"unexpected: {path}")
+    for link in sorted(p for p in root.rglob("*") if p.is_symlink()):
+        problems.append(f"unexpected symlink: {link.relative_to(root).as_posix()}")
     for path in sorted(expected.keys() & current.keys()):
         e, c = expected[path], current[path]
         if e["sha256"] != c["sha256"] or e["size"] != c["size"]:

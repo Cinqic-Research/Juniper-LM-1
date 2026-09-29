@@ -43,3 +43,9 @@ def test_wall_timeout():
 
 def test_memory_limit():
     assert not run_program("x = bytearray(6 * 1024**3)").passed
+
+
+def test_tmpfs_is_capped():
+    src = ("try:\n    open('/tmp/big', 'wb').write(b'x' * (300 * 1024**2))\n"
+           "except OSError:\n    raise SystemExit(0)\nraise SystemExit(1)\n")
+    assert run_program(src, Limits(file_size_mib=1024)).passed

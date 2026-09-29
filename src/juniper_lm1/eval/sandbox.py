@@ -2,7 +2,7 @@
 
 Isolation (see SECURITY.md):
   * all namespaces unshared: no network, private PID/IPC/UTS, unprivileged user
-  * filesystem: read-only /usr and the evaluation venv; tmpfs /tmp; nothing else
+  * filesystem: read-only /usr and the evaluation venv; size-capped tmpfs /tmp; nothing else
     from the host (no $HOME, no repositories, no credentials, no SSH/GPG agents)
   * environment cleared; CUDA hidden
   * rlimits via prlimit: address space, CPU seconds, process count, file size
@@ -35,6 +35,7 @@ class Limits:
     address_space_gib: int = 4   # torch's CPU libraries fail to map below ~4 GiB
     nproc: int = 64
     file_size_mib: int = 64
+    tmpfs_mib: int = 256          # /tmp lives in RAM; cap it
 
 
 @dataclasses.dataclass
@@ -56,7 +57,8 @@ def _command(venv: Path, limits: Limits) -> list[str]:
         "--ro-bind", "/usr", "/usr",
         "--symlink", "usr/lib", "/lib", "--symlink", "usr/lib64", "/lib64",
         "--symlink", "usr/bin", "/bin",
-        "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp",
+        "--proc", "/proc", "--dev", "/dev",
+        "--size", str(limits.tmpfs_mib * 1024**2), "--tmpfs", "/tmp",
         "--ro-bind", str(venv), "/venv",
         "--chdir", "/tmp",
         "--setenv", "PATH", "/venv/bin:/usr/bin", "--setenv", "HOME", "/tmp",

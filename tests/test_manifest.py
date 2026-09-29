@@ -45,3 +45,9 @@ def test_detects_added_and_missing(ckpt):
 def test_refuses_to_write_inside_baseline(ckpt):
     with pytest.raises(SystemExit):
         main(["build", str(ckpt), "--baseline-id", "t", "--out", str(ckpt / "m.json")])
+
+
+def test_detects_added_symlink(ckpt):
+    m = build_manifest(ckpt, "t", "")
+    (ckpt / "link").symlink_to(ckpt / "config.json")
+    assert verify(ckpt, m) == ["unexpected symlink: link"]

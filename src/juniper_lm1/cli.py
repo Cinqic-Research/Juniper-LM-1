@@ -35,6 +35,12 @@ def _convert(args: argparse.Namespace) -> int:
     return convert_main(["--force"] if args.force else [])
 
 
+def _bench(args: argparse.Namespace) -> int:
+    from juniper_lm1.eval.juniperbench import main as bench_main
+
+    return bench_main([args.cmd])
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="juniper")
     sub = ap.add_subparsers(dest="group", required=True)
@@ -44,6 +50,9 @@ def main(argv: list[str] | None = None) -> int:
     c = b.add_parser("convert", help="build B0 from the working copy and run the equivalence gate")
     c.add_argument("--force", action="store_true")
     c.set_defaults(fn=_convert)
+    e = sub.add_parser("bench", help="JuniperBench-Code-v1").add_subparsers(dest="cmd", required=True)
+    e.add_parser("validate", help="run all authoring checks in the sandbox").set_defaults(fn=_bench)
+    e.add_parser("verify", help="check the frozen suite against FREEZE.json").set_defaults(fn=_bench)
     args = ap.parse_args(argv)
     return args.fn(args)
 
