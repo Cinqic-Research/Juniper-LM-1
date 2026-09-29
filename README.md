@@ -27,8 +27,8 @@ untouched stock GPT-2 baseline. It is a controlled research study, not a frontie
 | Canonical baseline manifest | frozen: `reports/baseline/gpt2-124m-original-flowbox.manifest.json` |
 | Verified working copy | done: content hashes match the manifest |
 | B0 conversion + equivalence gate | passed on attempt 2 (gate v2); attempt 1 failure in `reports/failures/` |
-| JuniperBench-Code | v1.1 is primary (tag `eval-v1.1`; same 160 tasks as v1, protocol fix for erratum E1); authorship caveat in `RESEARCH.md` §4 |
-| B0 benchmark, corpus, training | not started |
+| JuniperBench-Code | v1.2 is primary (successor suite, tag `eval-v1.2`); see `RESEARCH.md` §6 and the versioned errata |
+| B0 benchmark, corpus, training | not started; benchmark inference/evaluation runner is not implemented |
 
 ## Setup
 
@@ -48,7 +48,7 @@ area configured in `configs/local.paths.toml`.
 - `MODEL_CARD.md`, `DATA_CARD.md`: filled in as artifacts are produced
 - `THIRD_PARTY_NOTICES.md`: upstream terms (GPT-2 weights are *not* Apache-2.0)
 - `reports/failures/`: every failed or rejected experiment
-- `evals/juniperbench_code_v1/`: the frozen tasks, datasheet, and errata; `evals/juniperbench_code_v1_1/`: the primary suite
+- `evals/juniperbench_code_v1/`: frozen v1 tasks, datasheet, and errata; `evals/juniperbench_code_v1_1/`: protocol-only v1.1; `evals/juniperbench_code_v1_2/`: corrected primary suite
 - `SECURITY.md`: how generated code is sandboxed
 
 ## License

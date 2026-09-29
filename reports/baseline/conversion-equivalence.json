@@ -24,8 +24,8 @@
       "tokenizer.json"
     ]
   },
-  "source": "/media/cinqic/Cinqic Storage/Juniper-LM-1-work/baseline-copy/gpt2-124m-original-flowbox",
-  "converted": "/media/cinqic/Cinqic Storage/Juniper-LM-1-work/checkpoints/B0-gpt2-124m-converted",
+  "source": "GPT-2 baseline working copy (external storage)",
+  "converted": "B0-gpt2-124m-converted (external storage)",
   "torch": "2.14.0+cu130",
   "working_copy_problems": [],
   "converted_files": {
@@ -134,7 +134,7 @@
       "greedy_b0": "\nWhat is a tensor?\n\nAssistant:\n\nWhat is a tensor?\n\nAssistant:\n\nWhat is a tensor?\n"
     },
     {
-      "prefix": "Café naïve résumé — “smart quotes” and emoji 🙂 plus\ttabs\n\n\na",
+      "prefix": "Caf\u00e9 na\u00efve r\u00e9sum\u00e9 \u2014 \u201csmart quotes\u201d and emoji \ud83d\ude42 plus\ttabs\n\n\na",
       "tokens": 28,
       "max_abs_err": {
         "source_vs_converted_fp32": 0.0,
@@ -170,7 +170,7 @@
       "argmax_all_positions_equal": true,
       "topk_pass": true,
       "greedy_equal": true,
-      "greedy_b0": " The history of the printing press shows how a single technical change can reshape the way ideas travel. Before movable type, books were copied by hand,"
+      "greedy_b0": "\u00a0The history of the printing press shows how a single technical change can reshape the way ideas travel. Before movable type, books were copied by hand,"
     }
   ],
   "max_abs_logit_error": {

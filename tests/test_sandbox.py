@@ -1,3 +1,4 @@
+import os
 import shutil
 
 import pytest
@@ -18,6 +19,13 @@ def test_no_network():
            "try:\n    socket.create_connection(('1.1.1.1', 80), timeout=2)\n"
            "except OSError:\n    raise SystemExit(0)\nraise SystemExit(1)\n")
     assert run_program(src).passed
+
+
+def test_network_namespace_is_private():
+    host_net_namespace = os.stat("/proc/self/ns/net").st_ino
+    r = run_program("import os\nprint(os.stat('/proc/self/ns/net').st_ino)")
+    assert r.passed
+    assert r.stdout.strip() != str(host_net_namespace)
 
 
 def test_host_filesystem_hidden_and_readonly():

@@ -1,5 +1,6 @@
 import json
 import os
+import copy
 
 import pytest
 
@@ -51,3 +52,40 @@ def test_detects_added_symlink(ckpt):
     m = build_manifest(ckpt, "t", "")
     (ckpt / "link").symlink_to(ckpt / "config.json")
     assert verify(ckpt, m) == ["unexpected symlink: link"]
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("file_count", 99),
+        ("total_bytes", 99),
+        ("directory_digest_sha256", "0" * 64),
+        ("identity", {"config": {"model_type": "wrong"}}),
+    ],
+)
+def test_detects_inconsistent_manifest_summary(ckpt, field, value):
+    manifest = build_manifest(ckpt, "t", "")
+    manifest[field] = value
+    assert any(field in problem for problem in verify(ckpt, manifest))
+
+
+def test_detects_baseline_id_mismatch_when_expected_id_is_supplied(ckpt):
+    manifest = build_manifest(ckpt, "original", "")
+    assert verify(ckpt, manifest, expected_baseline_id="working-copy") == [
+        "baseline_id does not match configured baseline"
+    ]
+
+
+def test_detects_duplicate_manifest_path(ckpt):
+    manifest = build_manifest(ckpt, "t", "")
+    manifest["files"].append(copy.deepcopy(manifest["files"][0]))
+    assert any("duplicate manifest path" in problem for problem in verify(ckpt, manifest))
+
+
+def test_manifest_is_portable_across_absolute_locations(ckpt, tmp_path):
+    manifest = build_manifest(ckpt, "t", "")
+    other_root = tmp_path / "other-parent" / ckpt.name
+    other_root.parent.mkdir()
+    import shutil
+    shutil.copytree(ckpt, other_root)
+    assert verify(other_root, manifest, check_mtime=False) == []

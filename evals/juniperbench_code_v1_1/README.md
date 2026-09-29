@@ -1,4 +1,4 @@
-# JuniperBench-Code-v1.1 (primary suite)
+# JuniperBench-Code-v1.1 (historical protocol successor)
 
 **v1.1 = the 160 v1 tasks, byte-identical, plus protocol v1.1.** There is no separate
 task file. `FREEZE.json` points to `../juniperbench_code_v1/juniperbench_code_v1.jsonl`
@@ -10,7 +10,8 @@ v1 erratum E1, where `JBC1/cin/008` could not be solved in normally written code
 512 tokens. All 160 tasks pass every validation check under v1.1, including the new
 `solution_fits_generation_cap`.
 
-Juniper results are reported on v1.1. v1 stays frozen as the historical record.
+v1.1 was the primary protocol after E1 and before the v1.2 successor. No model has been
+evaluated on v1.1. v1 stays frozen as the historical record; v1.2 is now primary.
 Task documentation, authorship, and threats to validity: `../juniperbench_code_v1/README.md`.
 
     juniper bench verify --suite v1.1
