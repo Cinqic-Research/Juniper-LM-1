@@ -56,7 +56,9 @@ For every task, run in the bubblewrap sandbox:
 
 ## Errata
 
-Known defects in the frozen v1 and how results account for them: `ERRATA.md`.
+Known defects in the frozen v1: `ERRATA.md`. Erratum E1 is resolved by
+**JuniperBench-Code-v1.1** (`../juniperbench_code_v1_1/`), which is the primary suite:
+the same tasks under a corrected protocol.
 
 ## Protocol
 

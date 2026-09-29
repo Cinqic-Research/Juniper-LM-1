@@ -16,9 +16,10 @@ The frozen suite (`juniperbench_code_v1.jsonl`, SHA-256 `76ae86e7…`) and its p
 - **Cause.** The validator checked prompt + solution ≤ 992 tokens (the context window)
   but did not check solution ≤ `max_new_tokens`. That check now exists
   (`solution_fits_generation_cap`); every other task passes it.
-- **Handling in v1 results.** Report v1 scores on all 160 tasks *and* on the 159 tasks
-  excluding cin/008, labeled as such. The exclusion is fixed here, before any result
-  exists, and applies identically to every model, B0 included.
-- **Correction for v1.1 (not yet published).** Either remove the fixed 512-token cap
-  (`max_new_tokens = context_length − prompt_tokens`), or replace cin/008 with a task
-  whose natural solution fits. The project owner decides.
+- **Resolution: JuniperBench-Code-v1.1** (tag `eval-v1.1`, published 2026-09-29, before
+  any model was evaluated). Same 160 tasks, byte-identical; protocol v1.1 replaces the
+  fixed cap with the remaining context (`max_new_tokens = context_length − prompt_tokens`).
+  The cap was removed rather than the task replaced, so that no task changes.
+  v1.1 is the primary suite for all Juniper results.
+- **If v1-protocol numbers are ever reported,** report them on all 160 tasks and on the
+  159 excluding cin/008, labeled as such.

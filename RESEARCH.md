@@ -102,8 +102,12 @@ Suite SHA-256 `76ae86e7267b0d1700b883633271ae8dc25ec79cfc2c74f052e92b94f10c72f7`
 
 **Post-freeze defect (E1).** The self-review found that `JBC1/cin/008` cannot be solved
 in normally written Python under the frozen 512-token generation cap: its reference is
-665 tokens, and compact rewrites still need 536+. v1 is unchanged. v1 results are
-reported both with and without cin/008. See `evals/juniperbench_code_v1/ERRATA.md` and
+665 tokens, and compact rewrites still need 536+. v1 is unchanged.
+
+**JuniperBench-Code-v1.1 (tag `eval-v1.1`) is the primary suite.** It has the same 160
+tasks, byte-identical, and changes only the protocol: `max_new_tokens` goes from 512 to
+the remaining context. Chosen over replacing cin/008 so that no task changes; decided
+before any model was evaluated. All 160 tasks pass validation under v1.1. See `evals/juniperbench_code_v1/ERRATA.md` and
 `reports/failures/juniperbench-v1-cin008-generation-cap.md`.
 Protocol: `configs/eval/juniperbench_code_v1.yaml`. Freeze record:
 `evals/juniperbench_code_v1/FREEZE.json`.

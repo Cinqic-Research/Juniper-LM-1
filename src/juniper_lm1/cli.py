@@ -38,7 +38,7 @@ def _convert(args: argparse.Namespace) -> int:
 def _bench(args: argparse.Namespace) -> int:
     from juniper_lm1.eval.juniperbench import main as bench_main
 
-    return bench_main([args.cmd])
+    return bench_main([args.cmd, "--suite", args.suite])
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -51,8 +51,11 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--force", action="store_true")
     c.set_defaults(fn=_convert)
     e = sub.add_parser("bench", help="JuniperBench-Code-v1").add_subparsers(dest="cmd", required=True)
-    e.add_parser("validate", help="run all authoring checks in the sandbox").set_defaults(fn=_bench)
-    e.add_parser("verify", help="check the frozen suite against FREEZE.json").set_defaults(fn=_bench)
+    for name, text in (("validate", "run all authoring checks in the sandbox"),
+                       ("verify", "check a frozen suite against its FREEZE.json")):
+        cmd = e.add_parser(name, help=text)
+        cmd.add_argument("--suite", choices=["v1", "v1.1"], default="v1.1")
+        cmd.set_defaults(fn=_bench)
     args = ap.parse_args(argv)
     return args.fn(args)
 

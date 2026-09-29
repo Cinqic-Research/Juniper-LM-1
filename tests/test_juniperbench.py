@@ -42,3 +42,10 @@ def test_write_tests_requires_killing_mutants():
     # rejects the reference itself
     assert not score(WRITE_TESTS, "    assert double(3) == 5\n", FAST)["passed"]
     assert not score(WRITE_TESTS, "    pass\n", FAST)["passed"]
+
+
+def test_generation_budget():
+    from juniper_lm1.eval.juniperbench import generation_budget
+    assert generation_budget(113, {"context_length": 1024, "max_new_tokens": 512}) == 512
+    assert generation_budget(113, {"context_length": 1024, "max_new_tokens": None}) == 911
+    assert generation_budget(900, {"context_length": 1024, "max_new_tokens": 512}) == 124

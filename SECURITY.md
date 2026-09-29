@@ -20,5 +20,5 @@ where `bwrap` is unavailable; there is deliberately no unsandboxed fallback.
 
 ## Reporting a vulnerability
 
-Please do not post exploit details publicly. Open a GitHub issue that says only that
-you have a security report, and a maintainer will arrange a private channel.
+Please report vulnerabilities privately through GitHub: **Security → Report a
+vulnerability** on this repository. Do not post exploit details in public issues.
