@@ -59,12 +59,45 @@ Consequences recorded as design constraints:
   tokenizer files are byte-identical to upstream. Report:
   `reports/baseline/conversion-equivalence.json`.
 
-## 4. Benchmark authorship (decided 2026-09-29)
+## 4. Benchmark authorship
 
-JuniperBench-Code-v1 (160 tasks with hidden tests) will be written and frozen by a
-**different model from the one implementing and training Juniper**, so the implementer
-does not grade its own homework. The implementing agent (Claude Opus 5.5) writes no
-benchmark tasks, reference solutions, or hidden tests. It may consume the frozen suite
-only mechanically: running the harness and running decontamination scans against the
-training corpus. The benchmark author's identity and exact model revision, and the
-freeze hash, will be recorded here when the suite lands.
+**Initial decision (2026-09-29):** JuniperBench-Code-v1 would be written by a different
+model from the one implementing Juniper, so the implementer would not grade its own
+homework.
+
+**Revised decision (2026-09-29, same day, by the project owner):** the implementing agent,
+Claude Opus 5.5 (`claude-opus-5-5`), writes and freezes the suite itself. The original
+concern still applies and is recorded as a threat to validity, not dismissed. Mitigations:
+
+- the suite and its decoding/execution protocol were frozen (tag `eval-v1`) before any
+  training data was collected and before any training run;
+- per-task SHA-256 hashes and a canary GUID; corrections only in a new version;
+- training data is decontaminated against every prompt, solution, test, and mutant, and
+  scanned for the canary;
+- HumanEval, HumanEval+, and MBPP+ remain the independent external anchors, and the
+  report will put more weight on agreement between JuniperBench and those anchors than
+  on JuniperBench alone.
+
+## 5. JuniperBench-Code-v1 (frozen 2026-09-29)
+
+160 tasks (40 Python, 60 PyTorch, 30 debugging, 20 testing/edge cases, 10 Cinqic-style
+integration). All are completion-format prompts, so the stock base model B0 is tested
+fairly. Ten test-writing tasks are scored by mutation testing. Every task passed
+automated validation in the bubblewrap sandbox: the reference passes twice, a stub fails,
+the buggy version fails (debugging tasks), all mutants are caught (test-writing tasks),
+the reference survives the stop sequences, and prompt plus solution fits the context.
+
+Found and fixed during authoring, all before the freeze:
+- dbg/023's device-bug test passed the buggy code, because a `meta` embedding accepts
+  CPU indices. Caught by the new "buggy version fails" check; the test now observes the
+  device of the position indices.
+- pt/054 initially counted `optimizer.zero_grad` calls, which would reject a correct
+  `model.zero_grad()` solution. It now compares the training trajectory against a
+  reference loop.
+- pt/007 contained a NaN test that was vacuous (the input was cleaned before the call).
+- Four assertions tested behavior the docstrings did not specify (py/033 `None`,
+  py/036 digits, dbg/010 `None`, cin/007 `"1.2.3"`) and were removed.
+
+Suite SHA-256 `76ae86e7267b0d1700b883633271ae8dc25ec79cfc2c74f052e92b94f10c72f7`.
+Protocol: `configs/eval/juniperbench_code_v1.yaml`. Freeze record:
+`evals/juniperbench_code_v1/FREEZE.json`.

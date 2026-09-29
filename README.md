@@ -27,7 +27,7 @@ untouched stock GPT-2 baseline. It is a controlled research study, not a frontie
 | Canonical baseline manifest | frozen: `reports/baseline/gpt2-124m-original-flowbox.manifest.json` |
 | Verified working copy | done: content hashes match the manifest |
 | B0 conversion + equivalence gate | passed on attempt 2 (gate v2); attempt 1 failure in `reports/failures/` |
-| JuniperBench-Code-v1 | to be authored and frozen independently (see `RESEARCH.md` §4) |
+| JuniperBench-Code-v1 + eval protocol | frozen (160 tasks, tag `eval-v1`); authorship caveat in `RESEARCH.md` §4 |
 | B0 benchmark, corpus, training | not started |
 
 ## Setup
@@ -48,6 +48,8 @@ area configured in `configs/local.paths.toml`.
 - `MODEL_CARD.md`, `DATA_CARD.md`: filled in as artifacts are produced
 - `THIRD_PARTY_NOTICES.md`: upstream terms (GPT-2 weights are *not* Apache-2.0)
 - `reports/failures/`: every failed or rejected experiment
+- `evals/juniperbench_code_v1/`: the frozen benchmark and its datasheet
+- `SECURITY.md`: how generated code is sandboxed
 
 ## License
 

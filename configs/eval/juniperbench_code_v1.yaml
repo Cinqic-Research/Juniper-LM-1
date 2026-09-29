@@ -1,0 +1,47 @@
+# JuniperBench-Code-v1 evaluation protocol. Frozen together with the suite (tag eval-v1).
+# Applies identically to B0 and every Juniper checkpoint. Never tuned per model.
+
+suite: evals/juniperbench_code_v1/juniperbench_code_v1.jsonl
+prompt_format: verbatim            # the task prompt is fed as-is; no chat template, no system text
+tokenizer: gpt2 (original 50,257-token BPE, from the B0 checkpoint)
+context_length: 1024
+max_new_tokens: 512                # further capped at context_length - prompt_tokens
+stop_sequences:                    # completion is cut at the earliest occurrence
+  - "\ndef "
+  - "\nclass "
+  - "\nif "
+  - "\nprint("
+  - "\n#"
+  - "\nassert "
+  - "\n@"
+  - "\n```"
+  - "<|endoftext|>"
+
+deterministic_track:
+  decoding: greedy
+  samples_per_task: 1
+  metric: pass@1
+
+sampling_track:
+  temperature: 0.8
+  top_p: 0.95
+  top_k: 0                         # disabled
+  samples_per_task: 10
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]   # sample i uses seed i
+  metrics: [pass@1, pass@5, pass@10]      # unbiased estimator (Chen et al., 2021)
+
+execution:                         # src/juniper_lm1/eval/sandbox.py
+  sandbox: bubblewrap, no network, read-only /usr + venv, tmpfs /tmp, cleared env
+  wall_timeout_s: 30
+  cpu_timeout_s: 20
+  address_space_gib: 4
+  max_processes: 64
+  cuda: hidden
+
+scoring:
+  complete: "prompt + completion + test + check(entry_point) exits 0"
+  write_tests: >
+    the completed test function passes against reference_impl AND fails
+    (any exception or non-zero exit) against every mutant
+  reporting: per-category pass@1 with 95% Wilson intervals; paired per-task
+    transitions vs B0 (both pass / B0-only / model-only / both fail)
