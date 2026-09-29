@@ -17,8 +17,9 @@ Consequences recorded as design constraints:
 - **Memory.** 6 GiB VRAM for full-weight training of 124M params (FP32 master weights +
   AdamW moments ≈ 2 GB before activations) means micro-batches of a few 1,024-token
   sequences with gradient checkpointing and gradient accumulation.
-- **Throughput.** A single RTX 2060 makes the 250M-token CPT budget a multi-day run. Pilots
-  (25–50M tokens) must be sized accordingly. Measured throughput will be recorded here.
+- **Throughput (estimate, not yet measured).** A single RTX 2060 probably makes the
+  250M-token CPT budget a multi-day run, so pilots (25–50M tokens) must be sized
+  accordingly. Measured throughput will replace this estimate.
 - **Sandbox.** Docker/Podman are absent; `bubblewrap` (`bwrap`) is available and will host
   the generated-code evaluator (no network, read-only binds, no secrets, rlimits).
 
@@ -69,8 +70,8 @@ homework.
 Claude Opus 5.5 (`claude-opus-5-5`), writes and freezes the suite itself. The original
 concern still applies and is recorded as a threat to validity, not dismissed. Mitigations:
 
-- the suite and its decoding/execution protocol were frozen (tag `eval-v1`) before any
-  training data was collected and before any training run;
+- the suite and its decoding/execution protocol were frozen (tags `eval-v1`, `eval-v1.1`)
+  before any training data was collected, any training run, or any model evaluation;
 - per-task SHA-256 hashes and a canary GUID; corrections only in a new version;
 - training data will be decontaminated against every prompt, solution, test, and mutant,
   and scanned for the canary (not yet implemented: it lands with the corpus pipeline);
@@ -107,7 +108,21 @@ in normally written Python under the frozen 512-token generation cap: its refere
 **JuniperBench-Code-v1.1 (tag `eval-v1.1`) is the primary suite.** It has the same 160
 tasks, byte-identical, and changes only the protocol: `max_new_tokens` goes from 512 to
 the remaining context. Chosen over replacing cin/008 so that no task changes; decided
-before any model was evaluated. All 160 tasks pass validation under v1.1. See `evals/juniperbench_code_v1/ERRATA.md` and
+before any model was evaluated. All 160 tasks pass validation under v1.1. See
+`evals/juniperbench_code_v1/ERRATA.md` and
 `reports/failures/juniperbench-v1-cin008-generation-cap.md`.
-Protocol: `configs/eval/juniperbench_code_v1.yaml`. Freeze record:
-`evals/juniperbench_code_v1/FREEZE.json`.
+
+| Suite | Protocol | Freeze record | Status |
+|---|---|---|---|
+| v1.1 | `configs/eval/juniperbench_code_v1_1.yaml` | `evals/juniperbench_code_v1_1/FREEZE.json` | **primary** |
+| v1 | `configs/eval/juniperbench_code_v1.yaml` | `evals/juniperbench_code_v1/FREEZE.json` | historical (erratum E1) |
+
+Both verify with `juniper bench verify --suite <v1|v1.1>`.
+
+**Sandbox fixes from the final pre-review self-check (before any model evaluation).**
+(1) The interpreter ran with `-I`, which implies `-E` and silently ignored
+`PYTHONHASHSEED=0`, so hash-order-dependent code could pass or fail at random. It now
+runs with `-s -P`, and the hash seed is fixed (regression test added). (2) Output was
+buffered in memory through pipes; it now goes to temp files capped by RLIMIT_FSIZE.
+Revalidation under the fixed sandbox gave identical results (v1.1: 160/160; v1: 159/160,
+only cin/008).

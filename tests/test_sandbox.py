@@ -49,3 +49,15 @@ def test_tmpfs_is_capped():
     src = ("try:\n    open('/tmp/big', 'wb').write(b'x' * (300 * 1024**2))\n"
            "except OSError:\n    raise SystemExit(0)\nraise SystemExit(1)\n")
     assert run_program(src, Limits(file_size_mib=1024)).passed
+
+
+def test_hash_seed_is_fixed():
+    outs = {run_program('print(hash("juniper"), list({"a", "b", "c", "d"}))').stdout
+            for _ in range(3)}
+    assert len(outs) == 1
+
+
+def test_output_volume_is_capped():
+    r = run_program("import sys\nwhile True:\n    sys.stdout.write('x' * 65536)\n",
+                    Limits(wall_s=20, cpu_s=10, file_size_mib=8))
+    assert not r.passed and len(r.stdout) <= 4096

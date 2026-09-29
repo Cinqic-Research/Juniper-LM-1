@@ -8,6 +8,7 @@ Isolation (see SECURITY.md):
   * rlimits via prlimit: address space, CPU seconds, process count, file size
   * wall-clock timeout; the whole process group is killed on expiry
   * the program is passed on stdin, so no host file is ever shared
+  * stdout/stderr go to unlinked temp files, so RLIMIT_FSIZE also caps output volume
 
 Generated code is never exec()'d in the evaluating process.
 """
@@ -20,6 +21,7 @@ import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -68,7 +70,9 @@ def _command(venv: Path, limits: Limits) -> list[str]:
         "--", PRLIMIT,
         f"--as={limits.address_space_gib * 1024**3}", f"--cpu={limits.cpu_s}",
         f"--nproc={limits.nproc}", f"--fsize={limits.file_size_mib * 1024**2}",
-        "/venv/bin/python", "-I", "-",
+        # -s -P rather than -I: -I implies -E, which would ignore PYTHONHASHSEED and make
+        # set/dict-order-dependent results vary between runs. The env is already cleared.
+        "/venv/bin/python", "-s", "-P", "-",
     ]
 
 
@@ -76,16 +80,22 @@ def run_program(source: str, limits: Limits = Limits(), venv: Path | None = None
     """Execute `source` in the sandbox. Exit code 0 == passed."""
     venv = Path(venv or sys.prefix)
     start = time.monotonic()
-    proc = subprocess.Popen(_command(venv, limits), stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            start_new_session=True, env={"PATH": "/usr/bin:/bin"})
-    try:
-        out, err = proc.communicate(source.encode(), timeout=limits.wall_s)
-        status = "passed" if proc.returncode == 0 else "failed"
-    except subprocess.TimeoutExpired:
-        os.killpg(proc.pid, signal.SIGKILL)
-        out, err = proc.communicate()
-        status = "timeout"
-    return Result(status, proc.returncode, round(time.monotonic() - start, 3),
-                  out.decode(errors="replace")[-OUTPUT_LIMIT:],
-                  err.decode(errors="replace")[-OUTPUT_LIMIT:])
+    with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
+        proc = subprocess.Popen(_command(venv, limits), stdin=subprocess.PIPE, stdout=out,
+                                stderr=err, start_new_session=True,
+                                env={"PATH": "/usr/bin:/bin"})
+        try:
+            proc.communicate(source.encode(), timeout=limits.wall_s)
+            status = "passed" if proc.returncode == 0 else "failed"
+        except subprocess.TimeoutExpired:
+            os.killpg(proc.pid, signal.SIGKILL)
+            proc.wait()
+            status = "timeout"
+        return Result(status, proc.returncode, round(time.monotonic() - start, 3),
+                      _tail(out), _tail(err))
+
+
+def _tail(f) -> str:
+    size = f.seek(0, os.SEEK_END)
+    f.seek(max(0, size - OUTPUT_LIMIT))
+    return f.read().decode(errors="replace")

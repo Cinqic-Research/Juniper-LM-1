@@ -59,7 +59,8 @@ def generation_budget(prompt_tokens: int, protocol: dict) -> int:
 
 
 def load_authoring() -> list[dict]:
-    sys.path.insert(0, str(AUTHORING_DIR))
+    if str(AUTHORING_DIR) not in sys.path:
+        sys.path.insert(0, str(AUTHORING_DIR))
     tasks = []
     for path in sorted(AUTHORING_DIR.glob("[!_]*.py")):
         spec = importlib.util.spec_from_file_location(path.stem, path)
