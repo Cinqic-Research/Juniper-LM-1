@@ -1,10 +1,11 @@
 Juniper LM 1
-Copyright 2026 Cinqic Research
+Copyright 2026 Cinqic
 
-This product includes new code and documentation authored by Cinqic Research and
+This product includes new code and documentation authored by Cinqic and
 licensed under the Apache License, Version 2.0.
 
-Juniper LM 1 model weights are derived from OpenAI's GPT-2 (124M), obtained as
+No Juniper LM 1 model weights have been released. Any future Juniper LM 1 weights
+will be derived from OpenAI's GPT-2 (124M), obtained as
 openai-community/gpt2 at revision 607a30d783dfa663caf39e06633721c8d4cfcd7e. Those
 weights are not covered by this repository's Apache-2.0 license; see
 THIRD_PARTY_NOTICES.md for upstream terms.
