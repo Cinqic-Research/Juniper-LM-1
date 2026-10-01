@@ -9,7 +9,7 @@ description = "Juniper LM 1: a controlled modernization study of the original GP
 readme = "README.md"
 requires-python = ">=3.12"
 license = "Apache-2.0"
-authors = [{ name = "Cinqic Research" }]
+authors = [{ name = "Cinqic" }]
 # Exact versions are pinned in requirements.lock.txt; these are the direct dependencies.
 dependencies = [
   "torch==2.14.0",
@@ -23,6 +23,10 @@ dependencies = [
 [project.optional-dependencies]
 train = ["datasets==5.0.1", "trl==1.14.0", "datasketch==2.0.0"]
 dev = ["pytest==9.1.1"]
+
+[project.urls]
+Source = "https://github.com/Cinqic-Research/Juniper-LM-1"
+Issues = "https://github.com/Cinqic-Research/Juniper-LM-1/issues"
 
 [project.scripts]
 juniper = "juniper_lm1.cli:main"

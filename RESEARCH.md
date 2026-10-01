@@ -169,3 +169,28 @@ Juniper model evaluation. No training corpus or Juniper checkpoint has been prod
 and the inference/sampling runner remains unimplemented. The GPT-2 upstream license
 conflict remains a blocker for any future distribution of derived weights; this code
 and benchmark update distributes no weights.
+
+## 7. Direction change: conversational-first (2026-09-30)
+
+**Decision (project owner).** Juniper LM 1 is now conversational-first rather than
+coding-first. The earlier coding-first plan is recorded above and in the frozen benchmark
+work; it is not rewritten.
+
+**Rationale.** Juniper LM 1 is intended to become the language component of Cinqic's AAA
+research system and to serve Juniper, and both roles need general conversational competence
+before domain specialization. Coding remains a planned specialization, after the language
+and conversation stages.
+
+**Intended order.** (1) finish baseline inference and evaluation infrastructure; (2) a
+conversational evaluation baseline for stock GPT-2; (3) contemporary American-English
+language competence; (4) conversational instruction tuning; (5) preference and alignment
+experiments; (6) coding specialization, including Python and PyTorch; (7) Juniper and AAA
+integration when the evidence supports it. None of these stages has started.
+
+**What does not change.** The invariants (GPT-2 small, 124,439,808 parameters, the original
+50,257-token BPE, 1,024-token context), the untouched canonical baseline, stock GPT-2 as the
+permanent comparison, the B0 conversion evidence and the failed attempt 1, and the frozen
+v1/v1.1/v1.2 suites. JuniperBench-Code v1.2 remains the primary *coding* suite and becomes
+a retention measurement during the conversational stages, so that coding regressions stay
+visible. No conversational benchmark has been chosen or frozen yet; one must be frozen
+before any conversational training run, under the same rules as §4-§6.

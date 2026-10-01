@@ -3,9 +3,9 @@ message: "If you use Juniper LM 1, JuniperBench-Code, or this methodology, pleas
 title: "Juniper LM 1: a controlled modernization study of the GPT-2 124M checkpoint"
 type: software
 authors:
-  - name: "Cinqic Research"
+  - name: "Cinqic"
 repository-code: "https://github.com/Cinqic-Research/Juniper-LM-1"
 license: Apache-2.0
 version: 0.1.0
 date-released: 2026-09-29
-keywords: [GPT-2, continued pretraining, PyTorch, code generation, benchmark, reproducibility]
+keywords: [GPT-2, continued pretraining, conversational language model, American English, code generation, benchmark, reproducibility]
